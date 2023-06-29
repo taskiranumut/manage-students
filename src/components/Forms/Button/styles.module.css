@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   width: max-content;
   height: 44px;
   border-radius: var(--border-radius-base);
@@ -16,7 +17,7 @@
   transition-duration: var(--transition-duration-base);
 }
 
-.button:focus {
+.primary:focus {
   border-color: var(--color-border-dark);
 }
 
@@ -47,4 +48,8 @@
     background: var(--color-primary);
     border-color: var(--color-primary);
   }
+}
+
+.icon {
+  height: unset;
 }
