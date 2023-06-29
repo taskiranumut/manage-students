@@ -1,0 +1,33 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 80px 0;
+}
+
+.imgWrapper {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.profileImg {
+  border-radius: 50%;
+}
+
+.fullName {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-normal);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.userType {
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+}
