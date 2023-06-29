@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./styles.module.css";
-import Button from "../Forms/Button";
-import CircleCaret from "../Icons/CircleCaret";
-import Bell from "../Icons/Bell";
+import Button from "@/components/Forms/Button";
+import CircleCaret from "@/components/Icons/CircleCaret";
+import Bell from "@/components/Icons/Bell";
 
 export default function Header() {
   return (
