@@ -1,0 +1,35 @@
+.appTitle {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+}
+
+.appTitle h1 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.titleIcon {
+  width: 6px;
+  height: auto;
+  background: var(--color-primary-light);
+}
+
+.medium h1 {
+  font-size: var(--font-size-medium);
+}
+
+.medium .titleIcon {
+  width: 4px;
+}
+
+.xxlarge h1 {
+  font-size: var(--font-size-xxlarge);
+}
+
+.xxlarge .titleIcon {
+  width: 6px;
+}
