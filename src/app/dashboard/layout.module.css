@@ -1,0 +1,25 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "navbar header"
+    "navbar main";
+  gap: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.header {
+  grid-area: header;
+  background-color: yellow;
+}
+
+.navbar {
+  grid-area: navbar;
+  background-color: blueviolet;
+}
+
+.main {
+  grid-area: main;
+}
