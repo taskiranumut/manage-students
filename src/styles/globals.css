@@ -9,10 +9,11 @@
   --color-text-secondary: #6c6c6c;
   --color-background-primary: #ffffff;
   --color-background-secondary: #f8f8f8;
+  --color-background-secondary-light: #fdfdfd;
   --color-border: #e5e5e5;
   --color-border-dark: #9fa2b4;
   --color-placeholder: #cdcdcd;
-  --color-background-navbar: #f2eae1;
+  --color-background-sidebar: #f2eae1;
   --color-pagination: #9fa2b4;
   --color-background-card-1: #f0f9ff;
   --color-background-card-2: #fef6fb;
