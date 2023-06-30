@@ -1,0 +1,39 @@
+.itemWrapper {
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding-left: 46px;
+  height: 40px;
+  border-radius: var(--border-radius-base);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: background var(--transition-duration-base);
+}
+
+.item span {
+  display: inline-block;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+}
+
+.item:hover {
+  background: var(--color-primary);
+}
+
+.active,
+.active:hover,
+.active:active {
+  background: var(--color-primary);
+}
