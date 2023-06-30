@@ -6,6 +6,8 @@
   --color-primary-gradient: linear-gradient(49deg, #feaf00 0%, #f8d442 100%);
   --color-secondary: #ffffff;
   --color-text-primary: #000000;
+  --color-text-primary-light: #303030;
+  --color-text-primary-lighter: #606060;
   --color-text-secondary: #6c6c6c;
   --color-background-primary: #ffffff;
   --color-background-secondary: #f8f8f8;
