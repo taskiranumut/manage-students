@@ -8,7 +8,7 @@ export default function SearchBar() {
     <Form>
       <div className={styles.inputWrapper}>
         <input type="text" className={styles.input} placeholder="Search..." />
-        <button className={styles.iconBtn}>
+        <button type="submit" className={styles.iconBtn}>
           <Search />
         </button>
       </div>

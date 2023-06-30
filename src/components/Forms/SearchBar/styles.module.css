@@ -8,7 +8,7 @@
   background: var(--color-background-primary);
   transition-property: border-color;
   transition-duration: var(--transition-duration-base);
-  height: 36px;
+  height: 38px;
 }
 
 .input::placeholder {
