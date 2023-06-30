@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import AppTitle from "@/components/AppTitle";
 import Profile from "./Profile";
+import Navbar from "./Navbar";
 
 export default function Sidebar() {
   return (
@@ -14,6 +15,7 @@ export default function Sidebar() {
           imgUrl="/images/avatar.png"
         />
       </section>
+      <Navbar />
     </aside>
   );
 }
