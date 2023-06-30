@@ -9,7 +9,7 @@ import User from "@/components/Icons/User";
 export default function HomeCards() {
   const cardData = [
     {
-      title: "student",
+      title: "students",
       value: "243",
       icon: <GraduationCap width="48" height="38" color="#74C1ED" />,
       cardBg: "#F0F9FF",
