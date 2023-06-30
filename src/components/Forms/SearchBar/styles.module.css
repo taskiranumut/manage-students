@@ -1,0 +1,40 @@
+.input {
+  width: 100%;
+  max-width: 212px;
+  padding: 10px 12px;
+  padding-right: 40px;
+  border-radius: var(--border-radius-card-bg-colors);
+  border: 1px solid var(--color-border);
+  background: var(--color-background-primary);
+  transition-property: border-color;
+  transition-duration: var(--transition-duration-base);
+  height: 36px;
+}
+
+.input::placeholder {
+  color: var(--color-placeholder);
+  font-size: var(--font-size-small);
+  font-weight: 400;
+}
+
+.input:focus {
+  outline: unset;
+  border-color: var(--color-border-dark);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.iconBtn {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 40px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
