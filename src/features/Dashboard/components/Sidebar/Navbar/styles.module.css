@@ -1,0 +1,13 @@
+.navbar {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.itemList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+}
