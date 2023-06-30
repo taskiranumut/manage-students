@@ -2,7 +2,8 @@
 
 import React from "react";
 import styles from "./layout.module.css";
-import Header from "@/components/Header";
+import Header from "@/features/Dashboard/components/Header";
+import Sidebar from "@/features/Dashboard/components/Sidebar";
 
 export default function Layout({ children }) {
   return (
@@ -10,7 +11,9 @@ export default function Layout({ children }) {
       <div className={styles.header}>
         <Header />
       </div>
-      <div className={styles.navbar}>Navbar</div>
+      <div className={styles.sidebar}>
+        <Sidebar />
+      </div>
       <div className={styles.main}>{children}</div>
     </div>
   );

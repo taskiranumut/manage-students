@@ -3,8 +3,8 @@
   grid-template-columns: 300px 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas:
-    "navbar header"
-    "navbar main";
+    "sidebar header"
+    "sidebar main";
   gap: 0;
   height: 100vh;
   width: 100%;
@@ -14,9 +14,8 @@
   grid-area: header;
 }
 
-.navbar {
-  grid-area: navbar;
-  background-color: blueviolet;
+.sidebar {
+  grid-area: sidebar;
 }
 
 .main {
