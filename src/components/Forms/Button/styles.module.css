@@ -6,6 +6,7 @@
   gap: 8px;
   width: max-content;
   height: 44px;
+  padding: 0 26px;
   border-radius: var(--border-radius-base);
   border: 1px solid transparent;
   background: var(--color-secondary);
@@ -23,6 +24,7 @@
 
 .full {
   width: 100%;
+  padding: 0;
 }
 
 .primary {
