@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import AppTitle from "@/components/AppTitle";
 import Profile from "./Profile";
 import Navbar from "./Navbar";
+import LogoutButton from "@/features/Authentication/Logout/components/LogoutButton";
 
 export default function Sidebar() {
   return (
@@ -16,6 +17,9 @@ export default function Sidebar() {
         />
       </section>
       <Navbar />
+      <section>
+        <LogoutButton />
+      </section>
     </aside>
   );
 }
