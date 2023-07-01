@@ -7,14 +7,12 @@ import Button from "@/components/Forms/Button";
 export default function SignInForm() {
   return (
     <Form>
-      <div className={styles.content}>
-        <FormInput type="text" placeholder="Enter your email" label="Email" />
-        <FormInput
-          type="password"
-          placeholder="Enter your password"
-          label="Password"
-        />
-      </div>
+      <FormInput type="text" placeholder="Enter your email" label="Email" />
+      <FormInput
+        type="password"
+        placeholder="Enter your password"
+        label="Password"
+      />
       <Button type="submit" btnStyle="primary" width="full">
         Sign In
       </Button>

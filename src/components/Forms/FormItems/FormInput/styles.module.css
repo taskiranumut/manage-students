@@ -5,10 +5,11 @@
   justify-items: flex-start;
   gap: 10px;
   width: 100%;
+  margin-bottom: 20px;
 }
 
-.group:not(:last-of-type) {
-  margin-bottom: 20px;
+.group:last-of-type {
+  margin-bottom: 30px;
 }
 
 .label {
