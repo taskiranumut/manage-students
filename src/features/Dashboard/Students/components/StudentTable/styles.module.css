@@ -1,0 +1,49 @@
+.table {
+  --table-image: 100px;
+  --table-name: minmax(140px, 1fr);
+  --table-email: minmax(160px, 1.1fr);
+  --table-phone: minmax(120px, 0.8fr);
+  --table-website: minmax(160px, 1.1fr);
+  --table-company: minmax(140px, 1fr);
+  --table-actions: minmax(100px, 1fr);
+  --table-grid-columns: var(--table-image) var(--table-name) var(--table-email)
+    var(--table-phone) var(--table-website) var(--table-company)
+    var(--table-actions);
+
+  --padding-horizontal: 16px;
+
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.tableHeader,
+.tableBody li {
+  display: grid;
+  grid-template-columns: var(--table-grid-columns);
+  justify-items: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.tableHeader {
+  padding: 22px var(--padding-horizontal);
+  background: transparent;
+  color: var(--color-table-header);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.tableBody li {
+  padding: 16px var(--padding-horizontal);
+  border-radius: var(--border-radius-card-bg-colors);
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+}
+
+.tableBody li:not(:last-of-type) {
+  margin-bottom: 10px;
+}

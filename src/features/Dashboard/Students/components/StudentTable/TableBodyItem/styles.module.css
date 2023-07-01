@@ -1,0 +1,44 @@
+.imgWrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.imgWrapper img {
+  border-radius: var(--border-radius-card-bg-colors);
+}
+
+.actions {
+  justify-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.actions button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.actions button svg path {
+  fill: var(--color-primary);
+  transition: fill var(--transition-duration-base);
+}
+
+.actions button:hover svg path {
+  fill: var(--color-primary-light);
+}
+
+.actions button:active svg path {
+  fill: var(--color-primary-dark);
+}
+
+@media (max-width: 768px) {
+  .actions button:hover svg path,
+  .actions button:active svg path {
+    fill: var(--color-primary);
+  }
+}
