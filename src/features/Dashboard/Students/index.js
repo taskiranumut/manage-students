@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import Header from "@/features/Dashboard/Students/components/Header";
 import Main from "@/features/Dashboard/Students/components/Main";
+import Footer from "@/features/Dashboard/Students/components/Footer";
 
 export default function Students() {
   return (
@@ -12,7 +13,9 @@ export default function Students() {
       <section className={styles.content}>
         <Main />
       </section>
-      <section className={styles.footer}></section>
+      <section className={styles.footer}>
+        <Footer />
+      </section>
     </>
   );
 }
