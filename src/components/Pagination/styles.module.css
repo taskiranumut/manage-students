@@ -1,0 +1,72 @@
+.container {
+  --color-pagination-base: #9fa2b4;
+  --color-pagination-light: #aeb1c3;
+  --color-pagination-dark: #9093a5;
+  --color-pagination-select: #4b506d;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 60px;
+  padding: 30px 0;
+}
+
+.text {
+  color: var(--color-pagination-base);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+}
+
+.rowSelect {
+  all: unset;
+  margin-left: 8px;
+  cursor: pointer;
+  background: url("/svg/caretDown.svg") no-repeat right center;
+  background-color: transparent;
+  padding-right: 14px;
+  color: var(--color-pagination-select);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+}
+
+.pageNums {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-items: flex-end;
+  gap: 8px;
+}
+
+.actions button {
+  background: transparent;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.actions button svg path {
+  stroke: var(--color-pagination-base);
+  transition: stroke var(--transition-duration-base);
+}
+
+.actions button:hover svg path {
+  stroke: var(--color-pagination-light);
+}
+
+.actions button:active svg path {
+  stroke: var(--color-pagination-dark);
+}
+
+@media (max-width: 768px) {
+  .actions button:hover svg path,
+  .actions button:active svg path {
+    stroke: var(--color-pagination-base);
+  }
+}
