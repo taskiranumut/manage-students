@@ -20,9 +20,16 @@ export default function Students() {
   useEffect(() => {
     if (!data) return;
 
-    const rebasedData = rebaseDataList(data?.users);
-    setStudentList(rebasedData);
+    const rebasedList = rebaseDataList(data?.users);
+
+    setStudentList((list) => [...getNewStudents(list), ...rebasedList]);
   }, [data, setStudentList]);
+
+  const getNewStudents = (list) => {
+    if (list.length === 0) return [];
+
+    return list.filter((item) => item.isNew).reverse();
+  };
 
   if (loading) return;
 

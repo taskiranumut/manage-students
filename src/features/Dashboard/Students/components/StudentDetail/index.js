@@ -14,8 +14,8 @@ export default function StudentDetail({ isAdd }) {
     lastName: "",
     email: "",
     phone: "",
-    imgUrl: "",
-    companyName: "",
+    image: "/images/avatar.png",
+    company: { name: "" },
     website: "",
   };
 

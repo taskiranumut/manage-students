@@ -1,14 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./styles.module.css";
 import Link from "next/link";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
+import { useStudentListContext } from "@/contexts/StudentList/context";
+import { rebaseData } from "../../utils";
+import { useRouter } from "next/navigation";
+import useFetch from "@/hooks/useFetch";
+import { baseUrl } from "../../api";
 
 export default function StudentForm({ formValues }) {
   const [form, setForm] = useState(formValues);
+  const [isActiveFetch, setIsActiveFetch] = useState(false);
+  const router = useRouter();
+  const { setStudentList } = useStudentListContext();
+
+  const url = `${baseUrl}/add`;
+  const options = useMemo(
+    () => ({
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    }),
+    [form]
+  );
+  const { data, loading, error } = useFetch(url, options, isActiveFetch);
+
+  useEffect(() => {
+    if (!data) return;
+
+    setIsActiveFetch(false);
+    setStudentList((list) => [...list, rebaseData(data, { isNew: true })]);
+    router.replace("/dashboard/students");
+  }, [data, setStudentList, router]);
 
   const handleChange = (e) => {
     setForm((form) => ({
@@ -19,6 +46,11 @@ export default function StudentForm({ formValues }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!form.firstName && !form.lastName && !form.email) {
+      return;
+    }
+    setIsActiveFetch(true);
   };
 
   return (
@@ -59,7 +91,7 @@ export default function StudentForm({ formValues }) {
         type="text"
         name="imgUrl"
         onChange={handleChange}
-        value={form.imgUrl}
+        value={form.image}
         placeholder="Enter image url"
         label="Image URL"
       />
@@ -75,7 +107,7 @@ export default function StudentForm({ formValues }) {
         type="text"
         name="companyName"
         onChange={handleChange}
-        value={form.companyName}
+        value={form.company.name}
         placeholder="Enter company name"
         label="Company Name"
       />
