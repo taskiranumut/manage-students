@@ -4,7 +4,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import styles from "./styles.module.css";
 import useFetch from "@/hooks/useFetch";
 import { useStudentListContext } from "@/contexts/StudentList/context";
-import { rebaseData } from "@/features/Dashboard/Students/utils";
+import { rebaseDataList } from "@/features/Dashboard/Students/utils";
 import { baseUrl } from "@/features/Dashboard/Students/api";
 import Header from "@/features/Dashboard/Students/components/Header";
 import Main from "@/features/Dashboard/Students/components/Main";
@@ -20,7 +20,7 @@ export default function Students() {
   useEffect(() => {
     if (!data) return;
 
-    const rebasedData = rebaseData(data?.users);
+    const rebasedData = rebaseDataList(data?.users);
     setStudentList(rebasedData);
   }, [data, setStudentList]);
 
