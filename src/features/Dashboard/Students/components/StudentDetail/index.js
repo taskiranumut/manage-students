@@ -5,11 +5,13 @@ import styles from "./styles.module.css";
 import Card from "@/components/Card";
 import StudentForm from "@/features/Dashboard/Students/components/StudentForm";
 import { useStudentListContext } from "@/contexts/StudentList/context";
+import { useParams } from "next/navigation";
 
-export default function StudentDetail({ isAdd }) {
-  const { studentList, setStudentList } = useStudentListContext();
+export default function StudentDetail({ isEdit }) {
+  const { studentList } = useStudentListContext();
+  const { id } = useParams();
 
-  const emptyFormValues = {
+  const formValues = {
     firstName: "",
     lastName: "",
     email: "",
@@ -19,10 +21,32 @@ export default function StudentDetail({ isAdd }) {
     website: "",
   };
 
+  const studentData = isEdit
+    ? structuredClone(studentList.find((item) => item.id == id))
+    : null;
+
+  if (isEdit && studentData) {
+    const { studentName, email, phone, website, imgUrl, companyName } =
+      studentData;
+    const [first, ...last] = studentName.split(" ");
+
+    formValues.firstName = first;
+    formValues.lastName = last.join(" ");
+    formValues.email = email;
+    formValues.phone = phone;
+    formValues.website = website;
+    formValues.image = imgUrl;
+    formValues.company = { name: companyName };
+  }
+
   return (
     <Card>
-      <h2>{isAdd ? "Add New Student" : "Edit Student"}</h2>
-      <StudentForm formValues={emptyFormValues} />
+      <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
+      <StudentForm
+        formValues={formValues}
+        studentData={studentData}
+        isEdit={isEdit}
+      />
     </Card>
   );
 }

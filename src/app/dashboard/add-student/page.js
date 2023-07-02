@@ -7,7 +7,7 @@ import StudentDetail from "@/features/Dashboard/Students/components/StudentDetai
 export default function Page() {
   return (
     <main className={styles.main}>
-      <StudentDetail isAdd={true} />
+      <StudentDetail isEdit={false} />
     </main>
   );
 }

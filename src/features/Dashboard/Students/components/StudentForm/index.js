@@ -13,20 +13,22 @@ import useFetch from "@/hooks/useFetch";
 import { baseUrl } from "@/features/Dashboard/Students/api";
 import { generateId } from "@/utils";
 
-export default function StudentForm({ formValues }) {
+export default function StudentForm({ formValues, studentData, isEdit }) {
   const [form, setForm] = useState(formValues);
   const [isActiveFetch, setIsActiveFetch] = useState(false);
   const router = useRouter();
   const { setStudentList } = useStudentListContext();
 
-  const url = `${baseUrl}/add`;
+  const url = isEdit
+    ? `${baseUrl}/${studentData?.id.length > 3 ? 100 : studentData?.id}`
+    : `${baseUrl}/add`;
   const options = useMemo(
     () => ({
-      method: "POST",
+      method: isEdit ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     }),
-    [form]
+    [form, isEdit]
   );
   const { data, loading, error } = useFetch(url, options, isActiveFetch);
 
@@ -34,16 +36,37 @@ export default function StudentForm({ formValues }) {
     if (!data) return;
 
     setIsActiveFetch(false);
-    setStudentList((list) => [
-      ...list,
-      rebaseData(data, {
-        isNew: true,
-        newId: generateId(),
-        newWebsite: form.website,
-      }),
-    ]);
+
+    const updateItem = (data, form) => {
+      setStudentList((list) => [
+        list.map((item) =>
+          item.id === studentData?.id
+            ? rebaseData(data, {
+                isEdited: true,
+                isNew: studentData?.isNew,
+                isDeleted: studentData?.isDeleted,
+                newId: studentData?.id,
+                newWebsite: form.website,
+              })
+            : item
+        ),
+      ]);
+    };
+
+    const addItem = (data, form) => {
+      setStudentList((list) => [
+        ...list,
+        rebaseData(data, {
+          isNew: true,
+          newId: generateId(),
+          newWebsite: form.website,
+        }),
+      ]);
+    };
+
+    isEdit ? updateItem(data, form) : addItem(data, form);
     router.replace("/dashboard/students");
-  }, [data, setStudentList, router, form.website]);
+  }, [data, setStudentList, router, form, studentData, isEdit]);
 
   const handleChange = (e) => {
     const targetName = e.target.name;
@@ -100,7 +123,7 @@ export default function StudentForm({ formValues }) {
         label="Email"
       />
       <FormInput
-        type="number"
+        type="text"
         name="phone"
         onChange={handleChange}
         value={form.phone}
@@ -109,7 +132,7 @@ export default function StudentForm({ formValues }) {
       />
       <FormInput
         type="text"
-        name="imgUrl"
+        name="image"
         onChange={handleChange}
         value={form.image}
         placeholder="Enter image url"

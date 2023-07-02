@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
+import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Forms/Button";
 import Pen from "@/components/Icons/Pen";
@@ -19,11 +20,13 @@ export default function TableBodyItem({ data }) {
       <div>{website}</div>
       <div>{companyName}</div>
       <div className={styles.actions}>
-        <Button type="button" btnStyle="icon">
-          <span>
-            <Pen />
-          </span>
-        </Button>
+        <Link href={`edit-student/${id}`}>
+          <Button type="button" btnStyle="icon">
+            <span>
+              <Pen />
+            </span>
+          </Button>
+        </Link>
         <Button type="button" btnStyle="icon">
           <span>
             <Trash />
