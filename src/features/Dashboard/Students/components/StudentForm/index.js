@@ -7,10 +7,11 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
 import { useStudentListContext } from "@/contexts/StudentList/context";
-import { rebaseData } from "../../utils";
+import { rebaseData } from "@/features/Dashboard/Students/utils";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
-import { baseUrl } from "../../api";
+import { baseUrl } from "@/features/Dashboard/Students/api";
+import { generateId } from "@/utils";
 
 export default function StudentForm({ formValues }) {
   const [form, setForm] = useState(formValues);
@@ -33,7 +34,10 @@ export default function StudentForm({ formValues }) {
     if (!data) return;
 
     setIsActiveFetch(false);
-    setStudentList((list) => [...list, rebaseData(data, { isNew: true })]);
+    setStudentList((list) => [
+      ...list,
+      rebaseData(data, { isNew: true, newId: generateId() }),
+    ]);
     router.replace("/dashboard/students");
   }, [data, setStudentList, router]);
 

@@ -7,10 +7,15 @@ export const rebaseDataList = (data) => {
 export const rebaseData = (data, options = {}) => {
   const { id, firstName, lastName, email, phone, image, company, website } =
     data;
-  const { isNew = false, isEdited = false, isDeleted = false } = options;
+  const {
+    isNew = false,
+    isEdited = false,
+    isDeleted = false,
+    newId = null,
+  } = options;
 
   return {
-    id,
+    id: newId ? newId : id,
     email,
     phone,
     website,
