@@ -46,9 +46,21 @@ export default function StudentForm({ formValues }) {
   }, [data, setStudentList, router, form.website]);
 
   const handleChange = (e) => {
+    const targetName = e.target.name;
+    const value = e.target.value;
+
+    if (targetName === "company") {
+      const company = { name: value };
+      setForm((form) => ({
+        ...form,
+        company,
+      }));
+      return;
+    }
+
     setForm((form) => ({
       ...form,
-      [e.target.name]: e.target.value,
+      [targetName]: value,
     }));
   };
 
@@ -113,7 +125,7 @@ export default function StudentForm({ formValues }) {
       />
       <FormInput
         type="text"
-        name="companyName"
+        name="company"
         onChange={handleChange}
         value={form.company.name}
         placeholder="Enter company name"
