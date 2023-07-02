@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import SearchBar from "@/components/Forms/SearchBar";
 import Button from "@/components/Forms/Button";
+import Link from "next/link";
 
 export default function Header({ title }) {
   return (
@@ -9,9 +10,11 @@ export default function Header({ title }) {
       <h1>{title}</h1>
       <div className={styles.wrapper}>
         <SearchBar />
-        <Button type="button" btnStyle="primary">
-          add new student
-        </Button>
+        <Link href="/dashboard/add-student">
+          <Button type="button" btnStyle="primary">
+            add new student
+          </Button>
+        </Link>
       </div>
     </div>
   );
