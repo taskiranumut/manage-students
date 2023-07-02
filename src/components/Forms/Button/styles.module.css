@@ -44,6 +44,10 @@
   background: var(--color-primary-dark);
 }
 
+.cancel {
+  background: var(--color-background-secondary);
+}
+
 @media (max-width: 768px) {
   .primary:hover,
   .primary:active {
