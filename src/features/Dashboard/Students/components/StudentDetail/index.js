@@ -4,11 +4,11 @@ import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import Card from "@/components/Card";
 import StudentForm from "@/features/Dashboard/Students/components/StudentForm";
-import { useStudentListContext } from "@/contexts/StudentList/context";
+import { useGlobalContext } from "@/contexts/StudentList/context";
 import { useParams } from "next/navigation";
 
 export default function StudentDetail({ isEdit }) {
-  const { studentList } = useStudentListContext();
+  const { studentList } = useGlobalContext();
   const { id } = useParams();
 
   const formValues = {

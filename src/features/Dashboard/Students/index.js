@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import styles from "./styles.module.css";
 import useFetch from "@/hooks/useFetch";
-import { useStudentListContext } from "@/contexts/StudentList/context";
+import { useGlobalContext } from "@/contexts/StudentList/context";
 import { rebaseDataList } from "@/features/Dashboard/Students/utils";
 import { baseUrl } from "@/features/Dashboard/Students/api";
 import Header from "@/features/Dashboard/Students/components/Header";
@@ -11,7 +11,7 @@ import Main from "@/features/Dashboard/Students/components/Main";
 import Footer from "@/features/Dashboard/Students/components/Footer";
 
 export default function Students() {
-  const { studentList, setStudentList } = useStudentListContext();
+  const { studentList, setStudentList } = useGlobalContext();
 
   const url = `${baseUrl}?limit=5&select=firstName,lastName,email,phone,image,company,website`;
   const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);

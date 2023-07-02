@@ -6,7 +6,7 @@ import Link from "next/link";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
-import { useStudentListContext } from "@/contexts/StudentList/context";
+import { useGlobalContext } from "@/contexts/StudentList/context";
 import { rebaseData } from "@/features/Dashboard/Students/utils";
 import { useRouter } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
@@ -17,7 +17,7 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
   const [form, setForm] = useState(formValues);
   const [isActiveFetch, setIsActiveFetch] = useState(false);
   const router = useRouter();
-  const { setStudentList } = useStudentListContext();
+  const { setStudentList } = useGlobalContext();
 
   const url = isEdit
     ? `${baseUrl}/${studentData?.id.length > 3 ? 100 : studentData?.id}`

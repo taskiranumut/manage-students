@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./layout.module.css";
-import StudentListProvider from "@/contexts/StudentList/provider";
+import GlobalContextProvider from "@/contexts/StudentList/provider";
 import Header from "@/features/Dashboard/components/Header";
 import Sidebar from "@/features/Dashboard/components/Sidebar";
 
@@ -15,9 +15,9 @@ export default function Layout({ children }) {
       <div className={styles.sidebar}>
         <Sidebar />
       </div>
-      <StudentListProvider>
+      <GlobalContextProvider>
         <div className={styles.main}>{children}</div>
-      </StudentListProvider>
+      </GlobalContextProvider>
     </div>
   );
 }

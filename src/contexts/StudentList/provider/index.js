@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { StudentListContext } from "../context";
+import { GlobalContext } from "../context";
 
-export default function StudentListProvider({ children }) {
+export default function GlobalContextProvider({ children }) {
   const [studentList, setStudentList] = useState([]);
 
   return (
-    <StudentListContext.Provider value={{ studentList, setStudentList }}>
+    <GlobalContext.Provider
+    >
       {children}
-    </StudentListContext.Provider>
+    </GlobalContext.Provider>
   );
 }
