@@ -111,7 +111,7 @@ export default function StudentForm({ formValues }) {
         placeholder="Enter company name"
         label="Company Name"
       />
-      <Button type="submit" btnStyle="primary" width="full">
+      <Button type="submit" btnStyle="primary" width="full" disabled={loading}>
         Submit
       </Button>
       <Link href="/dashboard/students">

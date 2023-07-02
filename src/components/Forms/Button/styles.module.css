@@ -18,6 +18,11 @@
   transition-duration: var(--transition-duration-base);
 }
 
+.button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .primary:focus {
   border-color: var(--color-border-dark);
 }

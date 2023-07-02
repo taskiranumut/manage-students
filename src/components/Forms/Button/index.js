@@ -8,6 +8,7 @@ export default function Button({
   onClick,
   value,
   children,
+  disabled,
 }) {
   let classNames = styles.button;
 
@@ -15,7 +16,13 @@ export default function Button({
   if (width) classNames += ` ${styles[width] ? styles[width] : ""}`;
 
   return (
-    <button type={type} className={classNames} onClick={onClick} value={value}>
+    <button
+      type={type}
+      className={classNames}
+      onClick={onClick}
+      value={value}
+      disabled={disabled}
+    >
       {children}
     </button>
   );
