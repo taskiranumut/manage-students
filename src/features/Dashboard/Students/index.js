@@ -11,9 +11,9 @@ import Main from "@/features/Dashboard/Students/components/Main";
 import Footer from "@/features/Dashboard/Students/components/Footer";
 
 export default function Students() {
-  const { studentList, setStudentList } = useGlobalContext();
+  const { studentList, setStudentList, limit, skip } = useGlobalContext();
 
-  const url = `${baseUrl}?limit=5&select=firstName,lastName,email,phone,image,company,website`;
+  const url = `${baseUrl}?limit=${limit}&skip=${skip}&select=firstName,lastName,email,phone,image,company,website`;
   const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
   const { data, loading, error } = useFetch(url, options, true);
 
@@ -30,8 +30,6 @@ export default function Students() {
 
     return list.filter((item) => item.isNew).reverse();
   };
-
-  if (loading) return;
 
   return (
     <>
