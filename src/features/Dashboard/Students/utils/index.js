@@ -12,13 +12,14 @@ export const rebaseData = (data, options = {}) => {
     isEdited = false,
     isDeleted = false,
     newId = null,
+    newWebsite = null,
   } = options;
 
   return {
     id: newId ? newId : id,
     email,
     phone,
-    website,
+    website: newWebsite ? newWebsite : website,
     imgUrl: image,
     studentName: `${firstName} ${lastName}`,
     companyName: company?.name,

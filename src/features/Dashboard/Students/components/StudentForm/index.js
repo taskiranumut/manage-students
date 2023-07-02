@@ -36,10 +36,14 @@ export default function StudentForm({ formValues }) {
     setIsActiveFetch(false);
     setStudentList((list) => [
       ...list,
-      rebaseData(data, { isNew: true, newId: generateId() }),
+      rebaseData(data, {
+        isNew: true,
+        newId: generateId(),
+        newWebsite: form.website,
+      }),
     ]);
     router.replace("/dashboard/students");
-  }, [data, setStudentList, router]);
+  }, [data, setStudentList, router, form.website]);
 
   const handleChange = (e) => {
     setForm((form) => ({
