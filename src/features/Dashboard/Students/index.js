@@ -15,7 +15,7 @@ export default function Students() {
 
   const url = `${baseUrl}?limit=5&select=firstName,lastName,email,phone,image,company,website`;
   const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
-  const { data, loading, error } = useFetch(url, options);
+  const { data, loading, error } = useFetch(url, options, true);
 
   useEffect(() => {
     if (!data) return;

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 
-export default function useFetch(url, options) {
+export default function useFetch(url, options, trigger = false) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!trigger) {
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const res = await fetch(url, options);
@@ -22,7 +26,7 @@ export default function useFetch(url, options) {
       }
     };
     fetchData();
-  }, [url, options]);
+  }, [url, options, trigger]);
 
   return { data, loading, error };
 }
