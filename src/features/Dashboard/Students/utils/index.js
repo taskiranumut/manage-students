@@ -4,9 +4,10 @@ export const rebaseDataList = (data) => {
   return data.map((data) => rebaseData(data));
 };
 
-export const rebaseData = (data) => {
+export const rebaseData = (data, options = {}) => {
   const { id, firstName, lastName, email, phone, image, company, website } =
     data;
+  const { isNew = false, isEdited = false, isDeleted = false } = options;
 
   return {
     id,
@@ -16,8 +17,8 @@ export const rebaseData = (data) => {
     imgUrl: image,
     studentName: `${firstName} ${lastName}`,
     companyName: company?.name,
-    isNew: false,
-    isEdited: false,
-    isDeleted: false,
+    isNew,
+    isEdited,
+    isDeleted,
   };
 };
