@@ -6,10 +6,8 @@ import Button from "../Forms/Button";
 import { useGlobalContext } from "@/contexts/StudentList/context";
 
 export default function Pagination() {
-  const { limit, setLimit, skip, setSkip } = useGlobalContext();
-
-  // TODO: make dynamic the total number
-  const total = 100;
+  const { limit, setLimit, skip, setSkip, paginationTotal } =
+    useGlobalContext();
 
   const handleChange = (e) => {
     setLimit(Number(e.target.value));
@@ -17,7 +15,9 @@ export default function Pagination() {
 
   const handleNext = () => {
     setSkip((skip) =>
-      skip + limit <= total - limit ? skip + limit : total - limit
+      skip + limit <= paginationTotal - limit
+        ? skip + limit
+        : paginationTotal - limit
     );
   };
 
@@ -41,7 +41,9 @@ export default function Pagination() {
       </Form>
       <div className={styles.pageNums}>
         <p className={styles.text}>
-          {skip + 1}-{total - skip < limit ? total : limit + skip} of {total}
+          {skip + 1}-
+          {paginationTotal - skip < limit ? paginationTotal : limit + skip} of{" "}
+          {paginationTotal}
         </p>
         <div className={styles.actions}>
           <Button
@@ -58,7 +60,7 @@ export default function Pagination() {
             type="button"
             btnStyle="icon"
             onClick={handleNext}
-            disabled={skip === total - limit}
+            disabled={skip === paginationTotal - limit}
           >
             <span>
               <Angle rotation="right" />
