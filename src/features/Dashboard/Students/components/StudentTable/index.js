@@ -17,7 +17,7 @@ export default function StudentTable({ tableData }) {
       </ul>
       <ul className={styles.tableBody}>
         {bodyData.slice(0, limit).map((data) => (
-          <TableBodyItem key={data.id} data={data} />
+          <TableBodyItem key={data.id} itemData={data} />
         ))}
       </ul>
     </div>

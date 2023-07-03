@@ -18,6 +18,7 @@ export default function Students() {
     skip,
     addedStudents,
     editedStudents,
+    removedStudents,
   } = useGlobalContext();
 
   const [isFetching, setIsFetching] = useState(false);
@@ -54,6 +55,16 @@ export default function Students() {
     );
     setStudentList(updatedList);
   }, [data, setStudentList, slicedStudents, limit, editedStudents]);
+
+  useEffect(() => {
+    const removeItem = () => {
+      setStudentList((list) =>
+        list.filter((item) => item.id != removedStudents.at(-1))
+      );
+    };
+
+    removeItem();
+  }, [removedStudents, setStudentList]);
 
   const updateList = (list, editedStudents) => {
     return list.map((item) => {
