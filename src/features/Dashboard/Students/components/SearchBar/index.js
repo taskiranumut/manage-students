@@ -16,7 +16,7 @@ export default function SearchBar() {
         type="text"
         name="searchQuery"
         className={styles.input}
-        placeholder="Search by eye color"
+        placeholder="Search..."
         onChange={handleChange}
         value={searchQuery}
       />

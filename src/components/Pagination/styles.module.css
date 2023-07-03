@@ -69,4 +69,27 @@
   .actions button:active svg path {
     stroke: var(--color-pagination-base);
   }
+
+  .container {
+    gap: 16px;
+    padding: 30px 0;
+  }
+
+  .pageNums {
+    gap: 4px;
+  }
+
+  .actions {
+    gap: 4px;
+  }
+
+  .actions button {
+    width: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    justify-content: space-between;
+  }
 }

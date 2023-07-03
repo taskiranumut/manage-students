@@ -1,5 +1,20 @@
 .main {
   height: 100%;
+  width: 100%;
   padding: 30px;
   background: var(--color-background-secondary);
+}
+
+@media (max-width: 768px) {
+  .main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: calc(100vh - 66px);
+  }
+}
+
+.main > section {
+  width: 100%;
 }
