@@ -7,7 +7,7 @@ export default function SearchBar() {
   const { searchQuery, setSearchQuery } = useGlobalContext();
 
   const handleChange = (e) => {
-    setSearchQuery(e.target.value);
+    setSearchQuery(e.target.value.trim());
   };
 
   return (

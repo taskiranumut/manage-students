@@ -20,12 +20,14 @@ export default function Students() {
     editedStudents,
     removedStudents,
     searchQuery,
+    setTotal,
   } = useGlobalContext();
 
   const [isFetching, setIsFetching] = useState(false);
   const [url, setUrl] = useState("");
 
   const timerRef = useRef(null);
+  const debounceTime = 400;
 
   // Kullanıcının eklediği veriler, pagination için slice edilir. Pagination'da önce kullanıcının eklediği veriler servis edilir. Kullanıcının girdiği veriler tüketildiğinde API'den yeni veri çekilir (studentList verisi pagination size'a göre ayarlanarak). Eğer kullanıcı hiç yeni veri eklemediyse ya da eklediği tüm veriler tüketildiyse slicedStudents = [] olur.
   const slicedStudents = useMemo(
@@ -53,7 +55,11 @@ export default function Students() {
   const { data, loading, error } = useFetch(url, options, isFetching);
 
   useEffect(() => {
-    const rebasedList = data ? rebaseDataList(data?.users) : [];
+    if (!data) return;
+
+    setTotal(data.total);
+
+    const rebasedList = rebaseDataList(data?.users);
     const filteredItems = filterRemovedItems(
       [...slicedStudents, ...rebasedList],
       removedStudents
@@ -68,6 +74,7 @@ export default function Students() {
     limit,
     editedStudents,
     removedStudents,
+    setTotal,
   ]);
 
   useEffect(() => {
@@ -96,7 +103,7 @@ export default function Students() {
           skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
         }`
       );
-    }, 300);
+    }, debounceTime);
   }, [searchQuery, skip, limit, addedStudents, slicedStudents]);
 
   const updateList = (list, editedStudents) => {
