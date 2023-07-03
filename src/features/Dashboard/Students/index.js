@@ -49,12 +49,21 @@ export default function Students() {
 
   useEffect(() => {
     const rebasedList = data ? rebaseDataList(data?.users) : [];
-    const updatedList = updateList(
+    const filteredItems = filterRemovedItems(
       [...slicedStudents, ...rebasedList],
-      editedStudents
+      removedStudents
     );
+
+    const updatedList = updateList(filteredItems, editedStudents);
     setStudentList(updatedList);
-  }, [data, setStudentList, slicedStudents, limit, editedStudents]);
+  }, [
+    data,
+    setStudentList,
+    slicedStudents,
+    limit,
+    editedStudents,
+    removedStudents,
+  ]);
 
   useEffect(() => {
     const removeItem = () => {
@@ -73,6 +82,10 @@ export default function Students() {
       );
       return data ? { ...data } : item;
     });
+  };
+
+  const filterRemovedItems = (list, removedStudents) => {
+    return list.filter((item) => !removedStudents.includes(item.id));
   };
 
   return (

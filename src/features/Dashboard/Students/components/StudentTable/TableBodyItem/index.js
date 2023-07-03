@@ -54,7 +54,12 @@ export default function TableBodyItem({ itemData }) {
             </span>
           </Button>
         </Link>
-        <Button type="button" btnStyle="icon" onClick={() => handleRemove(id)}>
+        <Button
+          type="button"
+          btnStyle="icon"
+          onClick={() => handleRemove(id)}
+          disabled={loading}
+        >
           <span>
             <Trash />
           </span>
