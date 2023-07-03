@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import styles from "./styles.module.css";
 import useFetch from "@/hooks/useFetch";
 import { useGlobalContext } from "@/contexts/StudentList/context";
@@ -19,10 +19,13 @@ export default function Students() {
     addedStudents,
     editedStudents,
     removedStudents,
+    searchQuery,
   } = useGlobalContext();
 
   const [isFetching, setIsFetching] = useState(false);
   const [url, setUrl] = useState("");
+
+  const timerRef = useRef(null);
 
   // Kullanıcının eklediği veriler, pagination için slice edilir. Pagination'da önce kullanıcının eklediği veriler servis edilir. Kullanıcının girdiği veriler tüketildiğinde API'den yeni veri çekilir (studentList verisi pagination size'a göre ayarlanarak). Eğer kullanıcı hiç yeni veri eklemediyse ya da eklediği tüm veriler tüketildiyse slicedStudents = [] olur.
   const slicedStudents = useMemo(
@@ -36,13 +39,15 @@ export default function Students() {
       return;
     }
 
+    if (searchQuery) return;
+
     setIsFetching(true);
     setUrl(
       `${baseUrl}?limit=${limit - slicedStudents.length}&skip=${
         skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
       }${baseSelect}`
     );
-  }, [slicedStudents, limit, skip, addedStudents]);
+  }, [slicedStudents, limit, skip, addedStudents, searchQuery]);
 
   const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
   const { data, loading, error } = useFetch(url, options, isFetching);
@@ -74,6 +79,25 @@ export default function Students() {
 
     removeItem();
   }, [removedStudents, setStudentList]);
+
+  useEffect(() => {
+    if (!searchQuery) return;
+
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    timerRef.current = setTimeout(() => {
+      setIsFetching(true);
+      setUrl(
+        `${baseUrl}/search?q=${searchQuery}&limit=${
+          limit - slicedStudents.length
+        }&skip=${
+          skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
+        }`
+      );
+    }, 300);
+  }, [searchQuery, skip, limit, addedStudents, slicedStudents]);
 
   const updateList = (list, editedStudents) => {
     return list.map((item) => {
