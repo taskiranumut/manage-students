@@ -6,6 +6,7 @@ import { GlobalContext } from "../context";
 export default function GlobalContextProvider({ children }) {
   const [studentList, setStudentList] = useState([]);
   const [addedStudents, setAddedStudents] = useState([]);
+  const [editedStudents, setEditedStudents] = useState([]);
   const [removedStudents, setRemovedStudents] = useState([]);
   const [limit, setLimit] = useState(5);
   const [skip, setSkip] = useState(0);
@@ -24,6 +25,8 @@ export default function GlobalContextProvider({ children }) {
         setSkip,
         addedStudents,
         setAddedStudents,
+        editedStudents,
+        setEditedStudents,
         removedStudents,
         setRemovedStudents,
         paginationTotal,

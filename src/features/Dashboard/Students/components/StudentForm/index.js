@@ -1,27 +1,30 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./styles.module.css";
+import { useGlobalContext } from "@/contexts/StudentList/context";
+import useFetch from "@/hooks/useFetch";
+import { baseUrl } from "@/features/Dashboard/Students/api";
+import { generateId } from "@/utils";
+import { rebaseData } from "@/features/Dashboard/Students/utils";
 import Link from "next/link";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
-import { useGlobalContext } from "@/contexts/StudentList/context";
-import { rebaseData } from "@/features/Dashboard/Students/utils";
-import { useRouter } from "next/navigation";
-import useFetch from "@/hooks/useFetch";
-import { baseUrl } from "@/features/Dashboard/Students/api";
-import { generateId } from "@/utils";
 
-export default function StudentForm({ formValues, studentData, isEdit }) {
+export default function StudentForm({ formValues, isEdit, id }) {
   const [form, setForm] = useState(formValues);
-  const [isActiveFetch, setIsActiveFetch] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [url, setUrl] = useState("");
+  const { setAddedStudents, editedStudents, setEditedStudents } =
+    useGlobalContext();
   const router = useRouter();
-  const { setStudentList, setAddedStudents } = useGlobalContext();
 
-  const url = isEdit
-    ? `${baseUrl}/${studentData?.id.length > 3 ? 100 : studentData?.id}`
-    : `${baseUrl}/add`;
+  useEffect(() => {
+    setForm(formValues);
+  }, [formValues]);
+
   const options = useMemo(
     () => ({
       method: isEdit ? "PUT" : "POST",
@@ -30,46 +33,46 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
     }),
     [form, isEdit]
   );
-  // const { data, loading, error } = useFetch(url, options, isActiveFetch);
+  const { data, loading, error } = useFetch(url, options, isFetching);
 
   useEffect(() => {
-    // if (!data) return;
-    // setIsActiveFetch(false);
-    // const updateItem = (data, form) => {
-    //   setStudentList((list) => [
-    //     list.map((item) =>
-    //       item.id === studentData?.id
-    //         ? rebaseData(data, {
-    //             isEdited: true,
-    //             isNew: studentData?.isNew,
-    //             isDeleted: studentData?.isDeleted,
-    //             newId: studentData?.id,
-    //             newWebsite: form.website,
-    //           })
-    //         : item
-    //     ),
-    //   ]);
-    // };
-    // const addItem = (data, form) => {
-    //   setAddedStudents((list) => [
-    //     ...list,
-    //     rebaseData(form, {
-    //       isNew: true,
-    //       newId: generateId(),
-    //       newWebsite: form.website,
-    //     }),
-    //   ]);
-    // };
-    // isEdit ? updateItem(data, form) : addItem(null, form);
-    // router.replace("/dashboard/students");
+    if (!data) return;
+
+    const updateItem = (data, form, id) => {
+      const newItem = rebaseData(data, {
+        newId: id,
+        newWebsite: form.website,
+      });
+
+      const hasItem = editedStudents.some((item) => item.id === id);
+      hasItem
+        ? setEditedStudents((list) => [
+            list.map((item) => (item.id === id ? newItem : item)),
+          ])
+        : setEditedStudents((list) => [...list, newItem]);
+    };
+
+    const addItem = (data, form) => {
+      setAddedStudents((list) => [
+        rebaseData(data, {
+          newId: generateId(),
+          newWebsite: form.website,
+        }),
+        ...list,
+      ]);
+    };
+    isEdit ? updateItem(data, form, id) : addItem(data, form);
+    setIsFetching(false);
+    router.replace("/dashboard/students");
   }, [
-    // data,
-    setStudentList,
-    setAddedStudents,
-    router,
-    form,
-    studentData,
+    data,
     isEdit,
+    id,
+    form,
+    setAddedStudents,
+    editedStudents,
+    setEditedStudents,
+    router,
   ]);
 
   const handleChange = (e) => {
@@ -93,26 +96,14 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!form.firstName && !form.lastName && !form.email) {
+    if (!form.firstName || !form.lastName || !form.email) {
       return;
     }
-    // setIsActiveFetch(true);
 
-    const addItem = (data, form) => {
-      setAddedStudents((list) => [
-        rebaseData(form, {
-          isNew: true,
-          newId: generateId(),
-          newWebsite: form.website,
-        }),
-        ...list,
-      ]);
-      // setAddedStudents((list) => [...list, 1]);
-    };
-
-    isEdit ? updateItem(data, form) : addItem(null, form);
-    router.replace("/dashboard/students");
+    setIsFetching(true);
+    setUrl(
+      isEdit ? `${baseUrl}/${id.length > 3 ? 100 : id}` : `${baseUrl}/add`
+    );
   };
 
   return (
@@ -173,7 +164,7 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
         placeholder="Enter company name"
         label="Company Name"
       />
-      <Button type="submit" btnStyle="primary" width="full" disabled={false}>
+      <Button type="submit" btnStyle="primary" width="full" disabled={loading}>
         Submit
       </Button>
       <Link href="/dashboard/students">

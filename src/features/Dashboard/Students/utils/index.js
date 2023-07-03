@@ -7,13 +7,7 @@ export const rebaseDataList = (data) => {
 export const rebaseData = (data, options = {}) => {
   const { id, firstName, lastName, email, phone, image, company, website } =
     data;
-  const {
-    isNew = false,
-    isEdited = false,
-    isDeleted = false,
-    newId = null,
-    newWebsite = null,
-  } = options;
+  const { newId = null, newWebsite = null } = options;
 
   return {
     id: newId ? newId : id,
@@ -23,8 +17,34 @@ export const rebaseData = (data, options = {}) => {
     imgUrl: image,
     studentName: `${firstName} ${lastName}`,
     companyName: company?.name,
-    isNew,
-    isEdited,
-    isDeleted,
+  };
+};
+
+export const getEmptyFormData = () => {
+  return {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    image: "/images/avatar.png",
+    company: { name: "" },
+    website: "",
+  };
+};
+
+export const getItemFormData = (data) => {
+  if (!data) return {};
+
+  const { studentName, email, phone, website, imgUrl, companyName } = data;
+  const [first, ...last] = studentName.split(" ");
+
+  return {
+    firstName: first,
+    lastName: last.join(" "),
+    email: email,
+    phone: phone,
+    website: website,
+    image: imgUrl,
+    company: { name: companyName },
   };
 };

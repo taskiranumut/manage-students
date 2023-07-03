@@ -1,52 +1,60 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { useParams } from "next/navigation";
 import styles from "./styles.module.css";
+import { useGlobalContext } from "@/contexts/StudentList/context";
+import { baseUrl, baseSelect } from "@/features/Dashboard/Students/api";
+import {
+  getEmptyFormData,
+  getItemFormData,
+} from "@/features/Dashboard/Students/utils";
+import useFetch from "@/hooks/useFetch";
 import Card from "@/components/Card";
 import StudentForm from "@/features/Dashboard/Students/components/StudentForm";
-import { useGlobalContext } from "@/contexts/StudentList/context";
-import { useParams } from "next/navigation";
 
 export default function StudentDetail({ isEdit }) {
+  const [url, setUrl] = useState("");
+  const [isFetching, setIsFetching] = useState(false);
+  const [resData, setResData] = useState(null);
+  const [formValues, setFormValues] = useState(getEmptyFormData());
+
   const { studentList } = useGlobalContext();
   const { id } = useParams();
 
-  const formValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    image: "/images/avatar.png",
-    company: { name: "" },
-    website: "",
-  };
+  useEffect(() => {
+    if (id && isEdit) {
+      setIsFetching(true);
+      setUrl(`${baseUrl}/${id.length > 3 ? 100 : id}?${baseSelect}`);
+    }
+  }, [id, isEdit]);
 
-  const studentData = isEdit
-    ? structuredClone(studentList.find((item) => item.id == id))
-    : null;
+  const options = useMemo(() => ({ method: "GET" }), []);
+  const { data, loading, error } = useFetch(url, options, isFetching);
 
-  if (isEdit && studentData) {
-    const { studentName, email, phone, website, imgUrl, companyName } =
-      studentData;
-    const [first, ...last] = studentName.split(" ");
+  useEffect(() => {
+    if (!data) return;
 
-    formValues.firstName = first;
-    formValues.lastName = last.join(" ");
-    formValues.email = email;
-    formValues.phone = phone;
-    formValues.website = website;
-    formValues.image = imgUrl;
-    formValues.company = { name: companyName };
-  }
+    setResData(data);
+    setIsFetching(false);
+  }, [data]);
+
+  useEffect(() => {
+    if (!resData || !isEdit) return;
+
+    // resData (id ile API'den gelen data) bilgileri kullanılamaz. Çünkü dummyjson'da update işlemleri veritabanına kaydedilmediği için veri güncel değil. Onun yerine güncel olduğu için GlobalContext'ten çekilen veri kullanılıyor.
+    const studentData = structuredClone(
+      studentList.find((item) => item.id == id)
+    );
+    setFormValues(getItemFormData(studentData));
+  }, [resData, id, isEdit, studentList]);
 
   return (
-    <Card>
-      <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
-      <StudentForm
-        formValues={formValues}
-        studentData={studentData}
-        isEdit={isEdit}
-      />
-    </Card>
+    !loading && (
+      <Card>
+        <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
+        <StudentForm formValues={formValues} isEdit={isEdit} />
+      </Card>
+    )
   );
 }
