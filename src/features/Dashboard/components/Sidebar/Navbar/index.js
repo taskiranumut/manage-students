@@ -14,6 +14,13 @@ import SquareSlidersVertical from "@/components/Icons/SquareSlidersVertical";
 export default function Navbar() {
   const pathname = usePathname();
 
+  const isActivePath = (currentPath, itemPath) => {
+    if (itemPath === "/dashboard") {
+      return currentPath === itemPath;
+    }
+    return currentPath.startsWith(itemPath);
+  };
+
   const navbarRoutes = [
     {
       title: "Home",
@@ -55,7 +62,7 @@ export default function Navbar() {
             title={title}
             path={path}
             icon={icon}
-            isActive={pathname === path}
+            isActive={isActivePath(pathname, path)}
           />
         ))}
       </ul>

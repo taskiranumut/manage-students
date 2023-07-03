@@ -47,7 +47,7 @@ export default function TableBodyItem({ itemData }) {
       <div>{website}</div>
       <div>{companyName}</div>
       <div className={styles.actions}>
-        <Link href={`edit-student/${id}`}>
+        <Link href={`students/edit-student/${id}`}>
           <Button type="button" btnStyle="icon">
             <span>
               <Pen />

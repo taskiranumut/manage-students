@@ -10,7 +10,7 @@ export default function Header({ title }) {
       <h1>{title}</h1>
       <div className={styles.wrapper}>
         <SearchBar />
-        <Link href="/dashboard/add-student">
+        <Link href="/dashboard/students/add-student">
           <Button type="button" btnStyle="primary">
             add new student
           </Button>
