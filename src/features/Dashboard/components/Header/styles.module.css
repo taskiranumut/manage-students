@@ -39,6 +39,10 @@
   display: none;
 }
 
+.backBtn button {
+  padding-left: unset;
+}
+
 @media (max-width: 768px) {
   .iconWrapper:hover path,
   .iconWrapper:active path {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import Button from "@/components/Forms/Button";
@@ -7,17 +8,25 @@ import Bell from "@/components/Icons/Bell";
 import Bars from "@/components/Icons/Bars";
 
 export default function Header({ setIsOpen }) {
+  const router = useRouter();
+
   const handleToggle = () => {
     setIsOpen((val) => !val);
   };
 
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
     <header className={styles.header}>
-      <Link href="#" className={styles.backBtn}>
-        <span className={styles.iconWrapper}>
-          <CircleCaret />
-        </span>
-      </Link>
+      <div className={styles.backBtn}>
+        <Button type="button" btnStyle="icon" onClick={handleBack}>
+          <span className={styles.iconWrapper}>
+            <CircleCaret />
+          </span>
+        </Button>
+      </div>
       <div className={styles.btnWrapper}>
         <Button type="button" btnStyle="icon">
           <span className={styles.iconWrapper}>
