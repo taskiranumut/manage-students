@@ -5,75 +5,45 @@ import styles from "./styles.module.css";
 import useFetch from "@/hooks/useFetch";
 import { useGlobalContext } from "@/contexts/StudentList/context";
 import { rebaseDataList } from "@/features/Dashboard/Students/utils";
-import { baseUrl } from "@/features/Dashboard/Students/api";
+import { baseUrl, baseSelect } from "@/features/Dashboard/Students/api";
 import Header from "@/features/Dashboard/Students/components/Header";
 import Main from "@/features/Dashboard/Students/components/Main";
 import Footer from "@/features/Dashboard/Students/components/Footer";
 
 export default function Students() {
-  const {
-    studentList,
-    setStudentList,
-    limit,
-    setLimit,
-    skip,
-    setSkip,
-    addedStudents,
-  } = useGlobalContext();
+  const { studentList, setStudentList, limit, skip, addedStudents } =
+    useGlobalContext();
 
-  const [newLimit, setNewLimit] = useState(limit);
   const [isFetching, setIsFetching] = useState(false);
+  const [url, setUrl] = useState("");
 
+  // Kullanıcının eklediği veriler, pagination için slice edilir. Pagination'da önce kullanıcının eklediği veriler servis edilir. Kullanıcının girdiği veriler tüketildiğinde API'den yeni veri çekilir (studentList verisi pagination size'a göre ayarlanarak). Eğer kullanıcı hiç yeni veri eklemediyse ya da eklediği tüm veriler tüketildiyse slicedStudents = [] olur.
   const slicedStudents = useMemo(
     () => addedStudents.slice(skip, limit + skip),
     [addedStudents, limit, skip]
   );
 
   useEffect(() => {
-    if (slicedStudents.length < limit) {
-      setNewLimit(limit - slicedStudents.length);
-      setIsFetching(true);
-      console.log("içerde");
-    } else {
+    if (slicedStudents.length >= limit) {
       setIsFetching(false);
-      setNewLimit(0);
-      setStudentList(slicedStudents);
-    }
-  }, [slicedStudents, limit, skip, setStudentList]);
-
-  console.log("slicedStudents: ", slicedStudents);
-  console.log("newLimit: ", newLimit);
-
-  const url = `${baseUrl}?limit=${newLimit}&skip=${skip}&select=firstName,lastName,email,phone,image,company,website`;
-  const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
-  const { data, loading, error } = useFetch(url, options, isFetching);
-
-  // useEffect(() => {
-  //   if (newLimit !== 0) {
-  //     setIsFetching(true);
-  //     return;
-  //   }
-
-  //   setIsFetching(false);
-  //   setStudentList(slicedStudents);
-  // }, [limit, skip, newLimit, slicedStudents, setStudentList]);
-
-  useEffect(() => {
-    if (!data || newLimit === 0) {
-      setStudentList(slicedStudents);
       return;
     }
 
-    const rebasedList = rebaseDataList(data?.users);
-    setStudentList([...slicedStudents, ...rebasedList]);
-    // setIsFetching(false);
-  }, [data, setStudentList, slicedStudents, newLimit, setIsFetching]);
+    setIsFetching(true);
+    setUrl(
+      `${baseUrl}?limit=${
+        limit - slicedStudents.length
+      }&skip=${skip}${baseSelect}`
+    );
+  }, [slicedStudents, limit, skip]);
 
-  // useEffect(() => {
-  //   if (!loading) {
-  //     setIsFetching(false);
-  //   }
-  // }, [loading]);
+  const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
+  const { data, loading, error } = useFetch(url, options, isFetching);
+
+  useEffect(() => {
+    const rebasedList = data ? rebaseDataList(data?.users) : [];
+    setStudentList([...slicedStudents, ...rebasedList]);
+  }, [data, setStudentList, slicedStudents, limit]);
 
   return (
     <>
