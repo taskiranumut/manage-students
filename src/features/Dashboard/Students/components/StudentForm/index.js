@@ -42,7 +42,6 @@ export default function StudentForm({ formValues, isEdit, id, hasItem }) {
     const updateItem = (data, form, id) => {
       const newItem = rebaseData(data, {
         newId: id,
-        newWebsite: form.website,
       });
 
       hasItem
@@ -56,7 +55,6 @@ export default function StudentForm({ formValues, isEdit, id, hasItem }) {
       setAddedStudents((list) => [
         rebaseData(data, {
           newId: generateId(),
-          newWebsite: form.website,
         }),
         ...list,
       ]);
@@ -148,9 +146,9 @@ export default function StudentForm({ formValues, isEdit, id, hasItem }) {
         <div className={styles.inputGroup}>
           <FormInput
             type="text"
-            name="website"
+            name="domain"
             onChange={handleChange}
-            value={form.website}
+            value={form.domain}
             placeholder="Enter website"
             label="Website"
           />

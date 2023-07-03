@@ -10,7 +10,7 @@ import useFetch from "@/hooks/useFetch";
 import { baseUrl } from "@/features/Dashboard/Students/api";
 
 export default function TableBodyItem({ itemData }) {
-  const { id, imgUrl, studentName, email, phone, website, companyName } =
+  const { id, imgUrl, studentName, email, phone, domain, companyName } =
     itemData;
   const { setRemovedStudents } = useGlobalContext();
   const [url, setUrl] = useState("");
@@ -44,7 +44,7 @@ export default function TableBodyItem({ itemData }) {
       <div>{studentName}</div>
       <div>{email}</div>
       <div>{phone}</div>
-      <div>{website}</div>
+      <div>{domain}</div>
       <div>{companyName}</div>
       <div className={styles.actions}>
         <Link href={`students/edit-student/${id}`}>
