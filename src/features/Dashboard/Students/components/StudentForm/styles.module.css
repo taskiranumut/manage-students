@@ -1,0 +1,42 @@
+.inputGroup {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.inputGroup > div {
+  margin-bottom: 20px !important;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.cancelBtn {
+  flex: 1;
+}
+
+.submitBtn {
+  flex: 2;
+}
+
+@media (max-width: 768px) {
+  .inputGroup,
+  .btnGroup {
+    display: block;
+  }
+
+  .btnGroup {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cancelBtn,
+  .submitBtn {
+    width: 100%;
+  }
+}

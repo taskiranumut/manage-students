@@ -16,6 +16,7 @@
   cursor: pointer;
   transition-property: background, border-color;
   transition-duration: var(--transition-duration-base);
+  text-transform: uppercase;
 }
 
 .button:disabled {

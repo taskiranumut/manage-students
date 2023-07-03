@@ -54,8 +54,10 @@ export default function StudentDetail({ isEdit }) {
 
   return (
     !loading && (
-      <Card>
-        <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
+      <Card size="large">
+        <h2 className={styles.cardTitle}>
+          {!isEdit ? "Add New Student" : "Edit Student"}
+        </h2>
         <StudentForm
           formValues={formValues}
           isEdit={isEdit}

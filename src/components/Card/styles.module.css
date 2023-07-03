@@ -31,3 +31,9 @@
     width: 90%;
   }
 }
+
+.large {
+  width: 80% !important;
+  max-width: 1000px;
+  padding: 32px;
+}

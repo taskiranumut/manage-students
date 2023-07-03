@@ -109,38 +109,60 @@ export default function StudentForm({ formValues, isEdit, id, hasItem }) {
   return (
     form && (
       <Form onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="firstName"
-          onChange={handleChange}
-          value={form.firstName}
-          placeholder="Enter first name"
-          label="First Name *"
-        />
-        <FormInput
-          type="text"
-          name="lastName"
-          onChange={handleChange}
-          value={form.lastName}
-          placeholder="Enter last name"
-          label="Last Name *"
-        />
-        <FormInput
-          type="text"
-          name="email"
-          onChange={handleChange}
-          value={form.email}
-          placeholder="Enter email"
-          label="Email *"
-        />
-        <FormInput
-          type="text"
-          name="phone"
-          onChange={handleChange}
-          value={form.phone}
-          placeholder="Enter phone"
-          label="Phone"
-        />
+        <div className={styles.inputGroup}>
+          <FormInput
+            type="text"
+            name="firstName"
+            onChange={handleChange}
+            value={form.firstName}
+            placeholder="Enter first name"
+            label="First Name *"
+          />
+          <FormInput
+            type="text"
+            name="lastName"
+            onChange={handleChange}
+            value={form.lastName}
+            placeholder="Enter last name"
+            label="Last Name *"
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <FormInput
+            type="text"
+            name="email"
+            onChange={handleChange}
+            value={form.email}
+            placeholder="Enter email"
+            label="Email *"
+          />
+          <FormInput
+            type="text"
+            name="phone"
+            onChange={handleChange}
+            value={form.phone}
+            placeholder="Enter phone"
+            label="Phone"
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <FormInput
+            type="text"
+            name="website"
+            onChange={handleChange}
+            value={form.website}
+            placeholder="Enter website"
+            label="Website"
+          />
+          <FormInput
+            type="text"
+            name="company"
+            onChange={handleChange}
+            value={form.company.name}
+            placeholder="Enter company name"
+            label="Company Name"
+          />
+        </div>
         <FormInput
           type="text"
           name="image"
@@ -149,35 +171,23 @@ export default function StudentForm({ formValues, isEdit, id, hasItem }) {
           placeholder="Enter image url"
           label="Image URL"
         />
-        <FormInput
-          type="text"
-          name="website"
-          onChange={handleChange}
-          value={form.website}
-          placeholder="Enter website"
-          label="Website"
-        />
-        <FormInput
-          type="text"
-          name="company"
-          onChange={handleChange}
-          value={form.company.name}
-          placeholder="Enter company name"
-          label="Company Name"
-        />
-        <Button
-          type="submit"
-          btnStyle="primary"
-          width="full"
-          disabled={loading}
-        >
-          Submit
-        </Button>
-        <Link href="/dashboard/students">
-          <Button type="submit" btnStyle="cancel" width="full">
-            Cancel
-          </Button>
-        </Link>
+        <div className={styles.btnGroup}>
+          <div className={styles.submitBtn}>
+            <Button
+              type="submit"
+              btnStyle="primary"
+              disabled={loading}
+              width="full"
+            >
+              Submit
+            </Button>
+          </div>
+          <Link href="/dashboard/students" className={styles.cancelBtn}>
+            <Button btnStyle="cancel" width="full">
+              Cancel
+            </Button>
+          </Link>
+        </div>
       </Form>
     )
   );
