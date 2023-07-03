@@ -22,8 +22,10 @@ export default function StudentForm({ formValues, isEdit, id }) {
   const router = useRouter();
 
   useEffect(() => {
-    setForm(formValues);
-  }, [formValues]);
+    if (isEdit && !form.firstName) {
+      setForm(formValues);
+    }
+  }, [formValues, isEdit, form]);
 
   const options = useMemo(
     () => ({
@@ -114,7 +116,7 @@ export default function StudentForm({ formValues, isEdit, id }) {
         onChange={handleChange}
         value={form.firstName}
         placeholder="Enter first name"
-        label="First Name"
+        label="First Name *"
       />
       <FormInput
         type="text"
@@ -122,7 +124,7 @@ export default function StudentForm({ formValues, isEdit, id }) {
         onChange={handleChange}
         value={form.lastName}
         placeholder="Enter last name"
-        label="Last Name"
+        label="Last Name *"
       />
       <FormInput
         type="text"
@@ -130,7 +132,7 @@ export default function StudentForm({ formValues, isEdit, id }) {
         onChange={handleChange}
         value={form.email}
         placeholder="Enter email"
-        label="Email"
+        label="Email *"
       />
       <FormInput
         type="text"

@@ -42,9 +42,9 @@ export const getItemFormData = (data) => {
     firstName: first,
     lastName: last.join(" "),
     email: email,
-    phone: phone,
-    website: website,
-    image: imgUrl,
-    company: { name: companyName },
+    phone: phone ? phone : "",
+    website: website ? website : "",
+    image: imgUrl ? imgUrl : "",
+    company: { name: companyName ? companyName : "" },
   };
 };
