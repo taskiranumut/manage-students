@@ -31,11 +31,11 @@ export default function Students() {
 
     setIsFetching(true);
     setUrl(
-      `${baseUrl}?limit=${
-        limit - slicedStudents.length
-      }&skip=${skip}${baseSelect}`
+      `${baseUrl}?limit=${limit - slicedStudents.length}&skip=${
+        skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
+      }${baseSelect}`
     );
-  }, [slicedStudents, limit, skip]);
+  }, [slicedStudents, limit, skip, addedStudents]);
 
   const options = useMemo(() => ({ method: "GET", cache: "force-cache" }), []);
   const { data, loading, error } = useFetch(url, options, isFetching);
