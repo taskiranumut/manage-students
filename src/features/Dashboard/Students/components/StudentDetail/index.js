@@ -53,7 +53,7 @@ export default function StudentDetail({ isEdit }) {
     !loading && (
       <Card>
         <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
-        <StudentForm formValues={formValues} isEdit={isEdit} />
+        <StudentForm formValues={formValues} isEdit={isEdit} id={id} />
       </Card>
     )
   );
