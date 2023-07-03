@@ -37,3 +37,9 @@
   max-width: 1000px;
   padding: 32px;
 }
+
+@media (max-width: 768px) {
+  .large {
+    width: 100% !important;
+  }
+}
