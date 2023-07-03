@@ -29,9 +29,27 @@
   fill: var(--color-icon-dark);
 }
 
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleBtn {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .iconWrapper:hover path,
   .iconWrapper:active path {
     fill: var(--color-icon-base);
+  }
+
+  .toggleBtn {
+    display: block;
+  }
+
+  .btnWrapper button {
+    padding-right: 0;
   }
 }

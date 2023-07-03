@@ -21,3 +21,14 @@
 .main {
   grid-area: main;
 }
+
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+    height: 100%;
+  }
+}

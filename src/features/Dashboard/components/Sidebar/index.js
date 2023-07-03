@@ -5,9 +5,9 @@ import Profile from "./Profile";
 import Navbar from "./Navbar";
 import LogoutButton from "@/features/Authentication/Logout/components/LogoutButton";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen }) {
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
       <section className={styles.wrapper}>
         <AppTitle size="medium" />
         <Profile
