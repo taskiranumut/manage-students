@@ -13,16 +13,15 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
 
-export default function StudentForm({ formValues, isEdit, id }) {
+export default function StudentForm({ formValues, isEdit, id, hasItem }) {
   const [form, setForm] = useState(formValues);
   const [isFetching, setIsFetching] = useState(false);
   const [url, setUrl] = useState("");
-  const { setAddedStudents, editedStudents, setEditedStudents } =
-    useGlobalContext();
+  const { setAddedStudents, setEditedStudents } = useGlobalContext();
   const router = useRouter();
 
   useEffect(() => {
-    if (isEdit && !form.firstName) {
+    if (isEdit && !form) {
       setForm(formValues);
     }
   }, [formValues, isEdit, form]);
@@ -46,11 +45,10 @@ export default function StudentForm({ formValues, isEdit, id }) {
         newWebsite: form.website,
       });
 
-      const hasItem = editedStudents.some((item) => item.id === id);
       hasItem
-        ? setEditedStudents((list) => [
-            list.map((item) => (item.id === id ? newItem : item)),
-          ])
+        ? setEditedStudents((list) =>
+            list.map((item) => (item.id === id ? newItem : item))
+          )
         : setEditedStudents((list) => [...list, newItem]);
     };
 
@@ -71,8 +69,8 @@ export default function StudentForm({ formValues, isEdit, id }) {
     isEdit,
     id,
     form,
+    hasItem,
     setAddedStudents,
-    editedStudents,
     setEditedStudents,
     router,
   ]);
@@ -109,71 +107,78 @@ export default function StudentForm({ formValues, isEdit, id }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormInput
-        type="text"
-        name="firstName"
-        onChange={handleChange}
-        value={form.firstName}
-        placeholder="Enter first name"
-        label="First Name *"
-      />
-      <FormInput
-        type="text"
-        name="lastName"
-        onChange={handleChange}
-        value={form.lastName}
-        placeholder="Enter last name"
-        label="Last Name *"
-      />
-      <FormInput
-        type="text"
-        name="email"
-        onChange={handleChange}
-        value={form.email}
-        placeholder="Enter email"
-        label="Email *"
-      />
-      <FormInput
-        type="text"
-        name="phone"
-        onChange={handleChange}
-        value={form.phone}
-        placeholder="Enter phone"
-        label="Phone"
-      />
-      <FormInput
-        type="text"
-        name="image"
-        onChange={handleChange}
-        value={form.image}
-        placeholder="Enter image url"
-        label="Image URL"
-      />
-      <FormInput
-        type="text"
-        name="website"
-        onChange={handleChange}
-        value={form.website}
-        placeholder="Enter website"
-        label="Website"
-      />
-      <FormInput
-        type="text"
-        name="company"
-        onChange={handleChange}
-        value={form.company.name}
-        placeholder="Enter company name"
-        label="Company Name"
-      />
-      <Button type="submit" btnStyle="primary" width="full" disabled={loading}>
-        Submit
-      </Button>
-      <Link href="/dashboard/students">
-        <Button type="submit" btnStyle="cancel" width="full">
-          Cancel
+    form && (
+      <Form onSubmit={handleSubmit}>
+        <FormInput
+          type="text"
+          name="firstName"
+          onChange={handleChange}
+          value={form.firstName}
+          placeholder="Enter first name"
+          label="First Name *"
+        />
+        <FormInput
+          type="text"
+          name="lastName"
+          onChange={handleChange}
+          value={form.lastName}
+          placeholder="Enter last name"
+          label="Last Name *"
+        />
+        <FormInput
+          type="text"
+          name="email"
+          onChange={handleChange}
+          value={form.email}
+          placeholder="Enter email"
+          label="Email *"
+        />
+        <FormInput
+          type="text"
+          name="phone"
+          onChange={handleChange}
+          value={form.phone}
+          placeholder="Enter phone"
+          label="Phone"
+        />
+        <FormInput
+          type="text"
+          name="image"
+          onChange={handleChange}
+          value={form.image}
+          placeholder="Enter image url"
+          label="Image URL"
+        />
+        <FormInput
+          type="text"
+          name="website"
+          onChange={handleChange}
+          value={form.website}
+          placeholder="Enter website"
+          label="Website"
+        />
+        <FormInput
+          type="text"
+          name="company"
+          onChange={handleChange}
+          value={form.company.name}
+          placeholder="Enter company name"
+          label="Company Name"
+        />
+        <Button
+          type="submit"
+          btnStyle="primary"
+          width="full"
+          disabled={loading}
+        >
+          Submit
         </Button>
-      </Link>
-    </Form>
+        <Link href="/dashboard/students">
+          <Button type="submit" btnStyle="cancel" width="full">
+            Cancel
+          </Button>
+        </Link>
+      </Form>
+    )
   );
 }

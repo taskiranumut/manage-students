@@ -17,9 +17,10 @@ export default function StudentDetail({ isEdit }) {
   const [url, setUrl] = useState("");
   const [isFetching, setIsFetching] = useState(false);
   const [resData, setResData] = useState(null);
-  const [formValues, setFormValues] = useState(getEmptyFormData());
-
-  const { studentList } = useGlobalContext();
+  const [formValues, setFormValues] = useState(
+    !isEdit ? getEmptyFormData() : null
+  );
+  const { studentList, editedStudents } = useGlobalContext();
   const { id } = useParams();
 
   useEffect(() => {
@@ -49,11 +50,18 @@ export default function StudentDetail({ isEdit }) {
     setFormValues(getItemFormData(studentData));
   }, [resData, id, isEdit, studentList]);
 
+  const hasItem = editedStudents.some((item) => item.id === id);
+
   return (
     !loading && (
       <Card>
         <h2>{!isEdit ? "Add New Student" : "Edit Student"}</h2>
-        <StudentForm formValues={formValues} isEdit={isEdit} id={id} />
+        <StudentForm
+          formValues={formValues}
+          isEdit={isEdit}
+          id={id}
+          hasItem={hasItem}
+        />
       </Card>
     )
   );
