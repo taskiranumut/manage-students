@@ -8,16 +8,16 @@ import LogoutButton from "@/features/Authentication/Logout/components/LogoutButt
 export default function Sidebar() {
   return (
     <aside className={styles.sidebar}>
-      <section>
+      <section className={styles.wrapper}>
         <AppTitle size="medium" />
         <Profile
           fullName="John Doe"
           userType="Admin"
           imgUrl="/images/avatar.png"
         />
+        <Navbar />
       </section>
-      <Navbar />
-      <section>
+      <section className={styles.btnSection}>
         <LogoutButton />
       </section>
     </aside>

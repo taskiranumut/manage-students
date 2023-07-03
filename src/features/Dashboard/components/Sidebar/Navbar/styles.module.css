@@ -11,3 +11,15 @@
   justify-content: flex-start;
   gap: 18px;
 }
+
+@media (max-width: 1368px) {
+  .itemList {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .itemList {
+    gap: 12px;
+  }
+}
