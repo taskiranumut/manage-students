@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
-import SearchBar from "@/components/Forms/SearchBar";
+import SearchBar from "@/features/Dashboard/Students/components/SearchBar";
 import Button from "@/components/Forms/Button";
 import Link from "next/link";
 

@@ -10,6 +10,7 @@ export default function GlobalContextProvider({ children }) {
   const [removedStudents, setRemovedStudents] = useState([]);
   const [limit, setLimit] = useState(5);
   const [skip, setSkip] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // TODO: make dynamic the value of "100";
   const paginationTotal = 100 + addedStudents.length - removedStudents.length;
@@ -30,6 +31,8 @@ export default function GlobalContextProvider({ children }) {
         removedStudents,
         setRemovedStudents,
         paginationTotal,
+        searchQuery,
+        setSearchQuery,
       }}
     >
       {children}
