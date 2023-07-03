@@ -11,8 +11,14 @@ import Main from "@/features/Dashboard/Students/components/Main";
 import Footer from "@/features/Dashboard/Students/components/Footer";
 
 export default function Students() {
-  const { studentList, setStudentList, limit, skip, addedStudents } =
-    useGlobalContext();
+  const {
+    studentList,
+    setStudentList,
+    limit,
+    skip,
+    addedStudents,
+    editedStudents,
+  } = useGlobalContext();
 
   const [isFetching, setIsFetching] = useState(false);
   const [url, setUrl] = useState("");
@@ -42,8 +48,21 @@ export default function Students() {
 
   useEffect(() => {
     const rebasedList = data ? rebaseDataList(data?.users) : [];
-    setStudentList([...slicedStudents, ...rebasedList]);
-  }, [data, setStudentList, slicedStudents, limit]);
+    const updatedList = updateList(
+      [...slicedStudents, ...rebasedList],
+      editedStudents
+    );
+    setStudentList(updatedList);
+  }, [data, setStudentList, slicedStudents, limit, editedStudents]);
+
+  const updateList = (list, editedStudents) => {
+    return list.map((item) => {
+      const data = editedStudents.find(
+        (editedItem) => editedItem.id == item.id
+      );
+      return data ? { ...data } : item;
+    });
+  };
 
   return (
     <>
