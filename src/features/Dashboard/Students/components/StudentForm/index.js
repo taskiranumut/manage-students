@@ -1,27 +1,31 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./styles.module.css";
+import { useGlobalContext } from "@/contexts/StudentList/context";
+import useFetch from "@/hooks/useFetch";
+import { baseUrl } from "@/features/Dashboard/Students/api";
+import { generateId } from "@/utils";
+import { rebaseData } from "@/features/Dashboard/Students/utils";
 import Link from "next/link";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormItems/FormInput";
 import Button from "@/components/Forms/Button";
-import { useStudentListContext } from "@/contexts/StudentList/context";
-import { rebaseData } from "@/features/Dashboard/Students/utils";
-import { useRouter } from "next/navigation";
-import useFetch from "@/hooks/useFetch";
-import { baseUrl } from "@/features/Dashboard/Students/api";
-import { generateId } from "@/utils";
 
-export default function StudentForm({ formValues, studentData, isEdit }) {
+export default function StudentForm({ formValues, isEdit, id, hasItem }) {
   const [form, setForm] = useState(formValues);
-  const [isActiveFetch, setIsActiveFetch] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [url, setUrl] = useState("");
+  const { setAddedStudents, setEditedStudents } = useGlobalContext();
   const router = useRouter();
-  const { setStudentList } = useStudentListContext();
 
-  const url = isEdit
-    ? `${baseUrl}/${studentData?.id.length > 3 ? 100 : studentData?.id}`
-    : `${baseUrl}/add`;
+  useEffect(() => {
+    if (isEdit && !form) {
+      setForm(formValues);
+    }
+  }, [formValues, isEdit, form]);
+
   const options = useMemo(
     () => ({
       method: isEdit ? "PUT" : "POST",
@@ -30,43 +34,46 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
     }),
     [form, isEdit]
   );
-  const { data, loading, error } = useFetch(url, options, isActiveFetch);
+  const { data, loading, error } = useFetch(url, options, isFetching);
 
   useEffect(() => {
     if (!data) return;
 
-    setIsActiveFetch(false);
+    const updateItem = (data, form, id) => {
+      const newItem = rebaseData(data, {
+        newId: id,
+        newWebsite: form.website,
+      });
 
-    const updateItem = (data, form) => {
-      setStudentList((list) => [
-        list.map((item) =>
-          item.id === studentData?.id
-            ? rebaseData(data, {
-                isEdited: true,
-                isNew: studentData?.isNew,
-                isDeleted: studentData?.isDeleted,
-                newId: studentData?.id,
-                newWebsite: form.website,
-              })
-            : item
-        ),
-      ]);
+      hasItem
+        ? setEditedStudents((list) =>
+            list.map((item) => (item.id === id ? newItem : item))
+          )
+        : setEditedStudents((list) => [...list, newItem]);
     };
 
     const addItem = (data, form) => {
-      setStudentList((list) => [
-        ...list,
+      setAddedStudents((list) => [
         rebaseData(data, {
-          isNew: true,
           newId: generateId(),
           newWebsite: form.website,
         }),
+        ...list,
       ]);
     };
-
-    isEdit ? updateItem(data, form) : addItem(data, form);
+    isEdit ? updateItem(data, form, id) : addItem(data, form);
+    setIsFetching(false);
     router.replace("/dashboard/students");
-  }, [data, setStudentList, router, form, studentData, isEdit]);
+  }, [
+    data,
+    isEdit,
+    id,
+    form,
+    hasItem,
+    setAddedStudents,
+    setEditedStudents,
+    router,
+  ]);
 
   const handleChange = (e) => {
     const targetName = e.target.name;
@@ -89,79 +96,89 @@ export default function StudentForm({ formValues, studentData, isEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!form.firstName && !form.lastName && !form.email) {
+    if (!form.firstName || !form.lastName || !form.email) {
       return;
     }
-    setIsActiveFetch(true);
+
+    setIsFetching(true);
+    setUrl(
+      isEdit ? `${baseUrl}/${id.length > 3 ? 100 : id}` : `${baseUrl}/add`
+    );
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormInput
-        type="text"
-        name="firstName"
-        onChange={handleChange}
-        value={form.firstName}
-        placeholder="Enter first name"
-        label="First Name"
-      />
-      <FormInput
-        type="text"
-        name="lastName"
-        onChange={handleChange}
-        value={form.lastName}
-        placeholder="Enter last name"
-        label="Last Name"
-      />
-      <FormInput
-        type="text"
-        name="email"
-        onChange={handleChange}
-        value={form.email}
-        placeholder="Enter email"
-        label="Email"
-      />
-      <FormInput
-        type="text"
-        name="phone"
-        onChange={handleChange}
-        value={form.phone}
-        placeholder="Enter phone"
-        label="Phone"
-      />
-      <FormInput
-        type="text"
-        name="image"
-        onChange={handleChange}
-        value={form.image}
-        placeholder="Enter image url"
-        label="Image URL"
-      />
-      <FormInput
-        type="text"
-        name="website"
-        onChange={handleChange}
-        value={form.website}
-        placeholder="Enter website"
-        label="Website"
-      />
-      <FormInput
-        type="text"
-        name="company"
-        onChange={handleChange}
-        value={form.company.name}
-        placeholder="Enter company name"
-        label="Company Name"
-      />
-      <Button type="submit" btnStyle="primary" width="full" disabled={loading}>
-        Submit
-      </Button>
-      <Link href="/dashboard/students">
-        <Button type="submit" btnStyle="cancel" width="full">
-          Cancel
+    form && (
+      <Form onSubmit={handleSubmit}>
+        <FormInput
+          type="text"
+          name="firstName"
+          onChange={handleChange}
+          value={form.firstName}
+          placeholder="Enter first name"
+          label="First Name *"
+        />
+        <FormInput
+          type="text"
+          name="lastName"
+          onChange={handleChange}
+          value={form.lastName}
+          placeholder="Enter last name"
+          label="Last Name *"
+        />
+        <FormInput
+          type="text"
+          name="email"
+          onChange={handleChange}
+          value={form.email}
+          placeholder="Enter email"
+          label="Email *"
+        />
+        <FormInput
+          type="text"
+          name="phone"
+          onChange={handleChange}
+          value={form.phone}
+          placeholder="Enter phone"
+          label="Phone"
+        />
+        <FormInput
+          type="text"
+          name="image"
+          onChange={handleChange}
+          value={form.image}
+          placeholder="Enter image url"
+          label="Image URL"
+        />
+        <FormInput
+          type="text"
+          name="website"
+          onChange={handleChange}
+          value={form.website}
+          placeholder="Enter website"
+          label="Website"
+        />
+        <FormInput
+          type="text"
+          name="company"
+          onChange={handleChange}
+          value={form.company.name}
+          placeholder="Enter company name"
+          label="Company Name"
+        />
+        <Button
+          type="submit"
+          btnStyle="primary"
+          width="full"
+          disabled={loading}
+        >
+          Submit
         </Button>
-      </Link>
-    </Form>
+        <Link href="/dashboard/students">
+          <Button type="submit" btnStyle="cancel" width="full">
+            Cancel
+          </Button>
+        </Link>
+      </Form>
+    )
   );
 }

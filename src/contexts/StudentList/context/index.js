@@ -2,5 +2,5 @@
 
 import { createContext, useContext } from "react";
 
-export const StudentListContext = createContext();
-export const useStudentListContext = () => useContext(StudentListContext);
+export const GlobalContext = createContext();
+export const useGlobalContext = () => useContext(GlobalContext);
