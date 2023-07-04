@@ -26,9 +26,6 @@ export default function Students() {
   const [isFetching, setIsFetching] = useState(false);
   const [url, setUrl] = useState("");
 
-  const timerRef = useRef(null);
-  const debounceTime = 400;
-
   // Kullanıcının eklediği veriler, pagination için slice edilir. Pagination'da önce kullanıcının eklediği veriler servis edilir. Kullanıcının girdiği veriler tüketildiğinde API'den yeni veri çekilir (studentList verisi pagination size'a göre ayarlanarak). Eğer kullanıcı hiç yeni veri eklemediyse ya da eklediği tüm veriler tüketildiyse slicedStudents = [] olur.
   const slicedStudents = useMemo(
     () => addedStudents.slice(skip, limit + skip),
@@ -90,20 +87,14 @@ export default function Students() {
   useEffect(() => {
     if (!searchQuery) return;
 
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-
-    timerRef.current = setTimeout(() => {
-      setIsFetching(true);
-      setUrl(
-        `${baseUrl}/search?q=${searchQuery}&limit=${
-          limit - slicedStudents.length
-        }&skip=${
-          skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
-        }`
-      );
-    }, debounceTime);
+    setIsFetching(true);
+    setUrl(
+      `${baseUrl}/search?q=${searchQuery}&limit=${
+        limit - slicedStudents.length
+      }&skip=${
+        skip - addedStudents.length < 0 ? skip : skip - addedStudents.length
+      }`
+    );
   }, [searchQuery, skip, limit, addedStudents, slicedStudents]);
 
   const updateList = (list, editedStudents) => {
