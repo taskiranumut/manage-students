@@ -1,0 +1,17 @@
+.container {
+  background: var(--color-background-secondary-light);
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+}
+
+.title {
+  font-size: var(--font-size-xxlarge);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  text-transform: capitalize;
+}
