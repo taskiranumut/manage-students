@@ -6,8 +6,10 @@ import Button from "@/components/Forms/Button";
 import CircleCaret from "@/components/Icons/CircleCaret";
 import Bell from "@/components/Icons/Bell";
 import Bars from "@/components/Icons/Bars";
+import { useGlobalContext } from "@/contexts/StudentList/context";
 
-export default function Header({ setIsOpen }) {
+export default function Header() {
+  const { setIsOpen } = useGlobalContext();
   const router = useRouter();
 
   const handleToggle = () => {

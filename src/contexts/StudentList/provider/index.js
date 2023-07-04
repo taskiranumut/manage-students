@@ -12,6 +12,7 @@ export default function GlobalContextProvider({ children }) {
   const [skip, setSkip] = useState(0);
   const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const paginationTotal = total + addedStudents.length - removedStudents.length;
 
@@ -34,6 +35,8 @@ export default function GlobalContextProvider({ children }) {
         searchQuery,
         setSearchQuery,
         setTotal,
+        isOpen,
+        setIsOpen,
       }}
     >
       {children}
