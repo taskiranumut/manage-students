@@ -1,3 +1,13 @@
+.formWrapper form {
+  --color-icon-base: #c4c4c4;
+  --color-icon-light: #d5d5d5;
+  --color-icon-dark: #b3b3b3;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .input {
   width: 100%;
   max-width: 212px;
@@ -24,6 +34,7 @@
 
 .inputWrapper {
   position: relative;
+  width: 100%;
 }
 
 .iconBtn {
@@ -37,4 +48,32 @@
   right: 0;
   bottom: 0;
   cursor: pointer;
+}
+
+.resetBtn {
+  width: 28px;
+}
+
+.resetBtn button {
+  background-color: transparent;
+  padding: 6px 0 0 6px;
+}
+
+.resetBtn button svg path {
+  fill: var(--color-icon-base);
+  transition: fill var(--transition-duration-base);
+}
+
+.resetBtn button:hover svg path {
+  fill: var(--color-icon-light);
+}
+
+.resetBtn button:active svg path {
+  fill: var(--color-icon-dark);
+}
+
+@media (max-width: 768px) {
+  .formWrapper {
+    width: 100%;
+  }
 }
