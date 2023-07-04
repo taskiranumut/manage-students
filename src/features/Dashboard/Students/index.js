@@ -9,6 +9,7 @@ import { baseUrl, baseSelect } from "@/features/Dashboard/Students/api";
 import Header from "@/features/Dashboard/Students/components/Header";
 import Main from "@/features/Dashboard/Students/components/Main";
 import Footer from "@/features/Dashboard/Students/components/Footer";
+import NoContent from "./components/NoContent";
 
 export default function Students() {
   const {
@@ -115,12 +116,18 @@ export default function Students() {
       <section className={styles.header}>
         <Header title="Student List" />
       </section>
-      <section className={styles.content}>
-        <Main bodyData={studentList} />
-      </section>
-      <section className={styles.footer}>
-        <Footer />
-      </section>
+      {studentList.length > 0 ? (
+        <>
+          <section className={styles.content}>
+            <Main bodyData={studentList} />
+          </section>
+          <section className={styles.footer}>
+            <Footer />
+          </section>
+        </>
+      ) : (
+        <NoContent text="There is no student!" />
+      )}
     </>
   );
 }

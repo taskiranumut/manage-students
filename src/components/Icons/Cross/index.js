@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function Bell({
+export default function Cross({
   width = "18",
   height = "18",
   color = "#C4C4C4",
