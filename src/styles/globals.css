@@ -17,6 +17,8 @@
   --color-table-header: #acacac;
   --color-placeholder: #cdcdcd;
   --color-background-sidebar: #f2eae1;
+  --color-scrollbar: rgb(254, 175, 0, 0.5);
+  --color-scrollbar-hover: rgb(254, 175, 0);
 
   /* typography */
   --font-family-default: Montserrat, sans-serif;
@@ -95,4 +97,22 @@ button,
 textarea,
 select {
   font-family: inherit;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--color-scrollbar);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-hover);
+}
+@media (max-width: 1366px) {
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
 }

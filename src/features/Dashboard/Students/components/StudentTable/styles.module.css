@@ -126,3 +126,22 @@
     --table-image: 100px;
   }
 }
+
+.tableWrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--color-scrollbar);
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-hover);
+}
+
+@media (max-width: 1366px) {
+  .tableWrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+}
