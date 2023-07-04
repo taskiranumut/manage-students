@@ -4,13 +4,13 @@ import CircleCross from "@/components/Icons/CircleCross";
 
 export default function NoContent({ text }) {
   return (
-    <div class={styles.container}>
+    <div className={styles.container}>
       <div>
         <span>
           <CircleCross />
         </span>
       </div>
-      <p class={styles.text}>{text}</p>
+      <p className={styles.text}>{text}</p>
     </div>
   );
 }
