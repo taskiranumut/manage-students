@@ -5,16 +5,23 @@
   background: var(--color-background-secondary);
 }
 
+.main > section {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .main {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-direction: column;
     min-height: calc(100vh - 66px);
   }
 }
 
-.main > section {
-  width: 100%;
+@media (max-width: 640px) {
+  .main {
+    justify-content: space-between;
+    padding: 20px;
+  }
 }

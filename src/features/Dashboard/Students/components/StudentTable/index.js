@@ -9,17 +9,19 @@ export default function StudentTable({ tableData }) {
   const { limit } = useGlobalContext();
 
   return (
-    <div className={styles.table}>
-      <ul className={styles.tableHeader}>
-        {headerData.map((item, i) => (
-          <TableHeaderItem key={i} data={item} />
-        ))}
-      </ul>
-      <ul className={styles.tableBody}>
-        {bodyData.slice(0, limit).map((data) => (
-          <TableBodyItem key={data.id} itemData={data} />
-        ))}
-      </ul>
+    <div className={styles.tableWrapper}>
+      <div className={styles.table}>
+        <ul className={styles.tableHeader}>
+          {headerData.map((item, i) => (
+            <TableHeaderItem key={i} data={item} />
+          ))}
+        </ul>
+        <ul className={styles.tableBody}>
+          {bodyData.slice(0, limit).map((data) => (
+            <TableBodyItem key={data.id} itemData={data} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

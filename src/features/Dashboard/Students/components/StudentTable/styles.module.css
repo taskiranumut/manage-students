@@ -1,11 +1,20 @@
+.tableWrapper {
+  --wrapper-width: 100%;
+
+  width: var(--wrapper-width);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+}
+
 .table {
-  --table-image: 100px;
+  --table-image: 80px;
   --table-name: minmax(140px, 1fr);
-  --table-email: minmax(160px, 1.1fr);
-  --table-phone: minmax(120px, 0.8fr);
-  --table-website: minmax(160px, 1.1fr);
+  --table-email: minmax(160px, 1.2fr);
+  --table-phone: minmax(140px, 1fr);
+  --table-website: minmax(140px, 1fr);
   --table-company: minmax(140px, 1fr);
-  --table-actions: minmax(100px, 1fr);
+  --table-actions: minmax(100px, 0.8fr);
   --table-grid-columns: var(--table-image) var(--table-name) var(--table-email)
     var(--table-phone) var(--table-website) var(--table-company)
     var(--table-actions);
@@ -13,8 +22,12 @@
   --padding-horizontal: 16px;
 
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+}
+
+.table ul {
+  --ul-width: 100%;
+
+  width: var(--ul-width);
 }
 
 .tableHeader,
@@ -24,6 +37,7 @@
   justify-items: flex-start;
   align-items: center;
   width: 100%;
+  gap: 16px;
 }
 
 .tableHeader {
@@ -42,8 +56,73 @@
   color: var(--color-text-primary);
   font-size: var(--font-size-base);
   font-weight: 400;
+  word-break: break-all;
 }
 
 .tableBody li:not(:last-of-type) {
   margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .tableWrapper {
+    --wrapper-width: calc(100vw - 60px);
+  }
+
+  .table ul {
+    --ul-width: 150vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .tableWrapper {
+    --wrapper-width: calc(100vw - 40px);
+  }
+
+  .table ul {
+    --ul-width: 300vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .tableWrapper {
+    --wrapper-width: calc(100vw - 370px);
+  }
+
+  .table ul {
+    --ul-width: 140vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .table ul {
+    --ul-width: 100vw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .table ul {
+    --ul-width: 80vw;
+  }
+}
+
+@media (min-width: 1366px) {
+  .table ul {
+    --ul-width: 75vw;
+  }
+}
+
+@media (min-width: 1440px) {
+  .tableWrapper {
+    --wrapper-width: 100%;
+  }
+
+  .table ul {
+    --ul-width: 100%;
+  }
+}
+
+@media (min-width: 1537px) {
+  .table {
+    --table-image: 100px;
+  }
 }

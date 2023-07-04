@@ -41,5 +41,6 @@
 @media (max-width: 768px) {
   .large {
     width: 100% !important;
+    padding: 24px;
   }
 }

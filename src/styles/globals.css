@@ -50,6 +50,7 @@
 html {
   scroll-behavior: smooth;
   overflow-y: overlay;
+  overflow-x: hidden;
 }
 
 body {
@@ -59,6 +60,7 @@ body {
   font-size: var(--font-size-base);
   font-family: var(--font-family-default);
   line-height: normal;
+  overflow-x: hidden;
 }
 
 h1,

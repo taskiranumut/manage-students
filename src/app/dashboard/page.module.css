@@ -3,3 +3,9 @@
   padding: 30px;
   background: var(--color-background-secondary-light);
 }
+
+@media (max-width: 640px) {
+  .main {
+    padding: 20px;
+  }
+}
