@@ -116,14 +116,16 @@ export default function Students() {
       <section className={styles.header}>
         <Header title="Student List" />
       </section>
-      {studentList.length > 0 ? (
+      {loading ? (
+        <NoContent text="Loading..." icon={false} />
+      ) : studentList.length > 0 ? (
         <>
           <section className={styles.content}>
             <Main bodyData={studentList} />
           </section>
           <section className={styles.footer}>
             <Footer />
-          </section>
+          </section>{" "}
         </>
       ) : (
         <NoContent text="There is no student!" />
