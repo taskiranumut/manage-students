@@ -6,3 +6,10 @@
   height: 100vh;
   background: var(--color-primary-gradient);
 }
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 50px;
+    align-items: flex-start;
+  }
+}
