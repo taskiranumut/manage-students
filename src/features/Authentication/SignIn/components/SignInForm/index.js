@@ -26,6 +26,7 @@ export default function SignInForm() {
 
     if (!form.email || !form.password) return;
 
+    window.sessionStorage.setItem("isAuth", "true");
     router.replace("/dashboard");
   };
 
