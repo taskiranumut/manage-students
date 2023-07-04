@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
-  const isAuth = sessionStorage.getItem("isAuth") === "true";
+  const isAuth = window.sessionStorage.getItem("isAuth") === "true";
 
   useEffect(() => {
     if (isAuth) {

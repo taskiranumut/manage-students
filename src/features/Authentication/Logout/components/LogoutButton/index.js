@@ -9,7 +9,7 @@ export default function LogoutButton() {
   const router = useRouter();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("isAuth");
+    window.sessionStorage.removeItem("isAuth");
     router.replace("/sign-in");
   };
 
